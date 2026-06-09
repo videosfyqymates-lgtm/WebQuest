@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebQuest: ¿Cómo vivían los primeros humanos? | 1º ESO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tierra: #8B5E3C;
+    --tierra-dark: #5C3D1E;
+    --tierra-light: #D4A574;
+    --arena: #F5E6C8;
+    --arena-dark: #E8D0A0;
+    --roca: #4A4035;
+    --roca-light: #7A6E62;
+    --ocre: #C17F3B;
+    --verde-musgo: #4A5C3A;
+    --bg: #FAF3E8;
+    --text: #2C2218;
+    --text-muted: #6B5740;
+    --accent: #A0522D;
+    --white: #FFFDF7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--tierra-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(255,255,255,0.02) 20px,
+      rgba(255,255,255,0.02) 40px
+    );
+  }
+  .site-header .eyebrow {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tierra-light);
+    margin-bottom: 0.75rem;
+  }
+  .site-header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .site-header .subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--arena);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+  .meta-badges {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .meta-badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--arena);
+    font-size: 0.8rem;
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  /* NAVEGACIÓN */
+  .nav-bar {
+    background: var(--roca);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item {
+    color: var(--arena-dark);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1rem 1.25rem;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Source Serif 4', serif;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: var(--tierra-light);
+    border-bottom-color: var(--tierra-light);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* LAYOUT PRINCIPAL */
+  .main-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* SECCIONES */
+  .section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--arena-dark);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocre);
+    margin-bottom: 0.5rem;
+    font-family: 'Source Serif 4', serif;
+  }
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--tierra-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  /* INTRO */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 640px) { .intro-grid { grid-template-columns: 1fr; } }
+
+  .intro-text p {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+  .intro-text p strong { color: var(--text); font-weight: 600; }
+
+  .cave-art-box {
+    background: var(--roca);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    color: var(--arena);
+  }
+  .cave-art-box .art-emoji {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+  .cave-art-box p {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--tierra-light);
+    line-height: 1.6;
+  }
+
+  .pregunta-guia {
+    background: var(--tierra-dark);
+    color: var(--arena);
+    border-radius: 8px;
+    padding: 1.75rem 2rem;
+    margin-top: 1.5rem;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    position: relative;
+  }
+  .pregunta-guia::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--tierra-light);
+    opacity: 0.4;
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    line-height: 1;
+  }
+  .pregunta-guia strong {
+    display: block;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--tierra-light);
+    margin-bottom: 0.5rem;
+  }
+
+  /* TAREA */
+  .rol-card {
+    background: var(--white);
+    border: 1px solid var(--arena-dark);
+    border-left: 4px solid var(--ocre);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .rol-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--tierra-dark);
+    margin-bottom: 0.5rem;
+  }
+  .rol-card .rol-tag {
+    display: inline-block;
+    background: var(--arena-dark);
+    color: var(--tierra-dark);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+  }
+  .rol-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .producto-final {
+    background: linear-gradient(135deg, var(--verde-musgo) 0%, #3A4A2E 100%);
+    color: var(--arena);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+  .producto-final h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--arena);
+  }
+  .producto-final ul {
+    list-style: none;
+    padding: 0;
+  }
+  .producto-final ul li {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    color: #B8C9A0;
+  }
+  .producto-final ul li::before {
+    content: '→ ';
+    color: var(--tierra-light);
+    font-weight: 700;
+  }
+
+  /* PROCESO */
+  .proceso-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .paso {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+  .paso:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 39px;
+    top: 60px;
+    bottom: 0;
+    width: 2px;
+    background: var(--arena-dark);
+  }
+  .paso-num {
+    width: 60px;
+    height: 60px;
+    background: var(--tierra-dark);
+    color: var(--arena);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .paso-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--tierra-dark);
+    margin-bottom: 0.4rem;
+    padding-top: 0.8rem;
+  }
+  .paso-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .paso-content .sesion-tag {
+    display: inline-block;
+    background: var(--arena-dark);
+    color: var(--tierra-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.6rem;
+  }
+
+  /* RECURSOS */
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .recurso-card {
+    background: var(--white);
+    border: 1px solid var(--arena-dark);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .recurso-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(90,50,20,0.12);
+  }
+  .recurso-tipo {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ocre);
+    margin-bottom: 0.5rem;
+  }
+  .recurso-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--tierra-dark);
+    margin-bottom: 0.4rem;
+  }
+  .recurso-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+  .recurso-link {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--arena-dark);
+    transition: border-color 0.15s;
+  }
+  .recurso-link:hover { border-color: var(--accent); }
+
+  /* EVALUACIÓN */
+  .rubrica-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 1.5rem;
+  }
+  .rubrica-table thead tr {
+    background: var(--tierra-dark);
+    color: var(--arena);
+  }
+  .rubrica-table thead th {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: none;
+  }
+  .rubrica-table tbody tr:nth-child(odd) {
+    background: var(--white);
+  }
+  .rubrica-table tbody tr:nth-child(even) {
+    background: var(--arena);
+  }
+  .rubrica-table td {
+    padding: 0.85rem 1rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--arena-dark);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .rubrica-table td:first-child {
+    font-weight: 600;
+    color: var(--tierra-dark);
+    white-space: nowrap;
+  }
+  .nivel-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .nivel-ex { background: var(--verde-musgo); color: var(--arena); }
+  .nivel-bien { background: var(--ocre); color: var(--white); }
+  .nivel-suf { background: var(--tierra-light); color: var(--tierra-dark); }
+  .nivel-ins { background: #C0BAB2; color: var(--roca); }
+
+  .puntuacion-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .punt-item {
+    background: var(--white);
+    border: 1px solid var(--arena-dark);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+  }
+  .punt-item .punt-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--tierra-dark);
+    display: block;
+  }
+  .punt-item .punt-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* CONCLUSIÓN */
+  .conclusion-preguntas {
+    background: var(--tierra-dark);
+    color: var(--arena);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    margin-top: 1.5rem;
+  }
+  .conclusion-preguntas h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    color: var(--tierra-light);
+  }
+  .conclusion-preguntas ol {
+    padding-left: 1.5rem;
+  }
+  .conclusion-preguntas ol li {
+    font-size: 1rem;
+    color: var(--arena-dark);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .conclusion-mensaje {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 1.5rem;
+    line-height: 1.75;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--roca);
+    color: var(--roca-light);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.82rem;
+    margin-top: 2rem;
+  }
+  .site-footer strong { color: var(--tierra-light); }
+
+  /* UTILIDADES */
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: var(--ocre);
+    margin: 1rem 0 1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- CABECERA -->
+<header class="site-header">
+  <p class="eyebrow">WebQuest · Historia · 1º ESO</p>
+  <h1>¿Cómo vivían los primeros humanos?</h1>
+  <p class="subtitle">Una investigación guiada sobre la Prehistoria: del Paleolítico al Neolítico</p>
+  <div class="meta-badges">
+    <span class="meta-badge">⏱ 3 sesiones</span>
+    <span class="meta-badge">👥 Trabajo en grupos de 4</span>
+    <span class="meta-badge">🏫 1º ESO · Geografía e Historia</span>
+    <span class="meta-badge">📋 Tarea de producto creativo</span>
+  </div>
+</header>
+
+<!-- NAVEGACIÓN -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#introduccion" class="nav-item active">Introducción</a>
+    <a href="#tarea" class="nav-item">Tarea</a>
+    <a href="#proceso" class="nav-item">Proceso</a>
+    <a href="#recursos" class="nav-item">Recursos</a>
+    <a href="#evaluacion" class="nav-item">Evaluación</a>
+    <a href="#conclusion" class="nav-item">Conclusión</a>
+  </div>
+</nav>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="main-content">
+
+  <!-- 1. INTRODUCCIÓN -->
+  <section class="section" id="introduccion">
+    <p class="section-label">01 · Introducción</p>
+    <h2 class="section-title">El viaje más largo de la historia</h2>
+    <div class="divider"></div>
+    <div class="intro-grid">
+      <div class="intro-text">
+        <p>Hace más de <strong>2,5 millones de años</strong>, los primeros seres humanos aparecieron en África. No tenían casas, no conocían la escritura, no sabían cultivar. Y sin embargo, sobrevivieron, evolucionaron y transformaron el mundo.</p>
+        <p>La <strong>Prehistoria</strong> es el período más largo de la humanidad: abarca desde la aparición del género Homo hasta la invención de la escritura, hace unos 3.500 años a.C. En ese tiempo, los humanos pasaron de ser cazadores nómadas a agricultores sedentarios, construyeron monumentos de piedra y dejaron pinturas que aún hoy nos asombran.</p>
+        <p>En esta WebQuest os convertiréis en <strong>investigadores prehistóricos</strong>. Tendréis que explorar fuentes, analizar evidencias y elaborar un producto final que explique cómo era la vida en la Prehistoria.</p>
+      </div>
+      <div>
+        <div class="cave-art-box">
+          <span class="art-emoji">🦬</span>
+          <p>"Las pinturas de Altamira llevan más de 14.000 años esperando para contarnos su historia. Vosotros seréis quienes la descifréis."</p>
+        </div>
+      </div>
+    </div>
+    <div class="pregunta-guia">
+      <strong>Pregunta guía</strong>
+      ¿Cómo consiguieron sobrevivir y desarrollarse los primeros seres humanos durante la Prehistoria, y qué cambios transformaron para siempre su forma de vida?
+    </div>
+  </section>
+
+  <!-- 2. TAREA -->
+  <section class="section" id="tarea">
+    <p class="section-label">02 · Tarea</p>
+    <h2 class="section-title">Vuestra misión como investigadores</h2>
+    <div class="divider"></div>
+
+    <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem;">Cada grupo adoptará un <strong style="color:var(--text)">rol de especialista</strong>. Desde ese rol, deberán investigar y elaborar un <strong style="color:var(--text)">dosier digital</strong> que responda a la pregunta guía. El dosier se presentará al resto de la clase.</p>
+
+    <div class="rol-card">
+      <div class="rol-tag">Grupo A</div>
+      <h4>Especialistas en vida cotidiana</h4>
+      <p>Investigáis cómo se alimentaban, vestían, construían refugios y organizaban la vida en grupo los humanos del Paleolítico. ¿Cómo era un día normal hace 100.000 años?</p>
+    </div>
+
+    <div class="rol-card">
+      <div class="rol-tag">Grupo B</div>
+      <h4>Especialistas en arte y simbolismo</h4>
+      <p>Analizáis las pinturas rupestres y el arte prehistórico: qué significan, por qué las hacían, qué técnicas usaban. Centraos en Altamira (España) y Lascaux (Francia).</p>
+    </div>
+
+    <div class="rol-card">
+      <div class="rol-tag">Grupo C</div>
+      <h4>Especialistas en la Revolución Neolítica</h4>
+      <p>Investigáis el gran cambio: de la caza-recolección a la agricultura y ganadería. ¿Por qué ocurrió? ¿Qué consecuencias tuvo para la humanidad?</p>
+    </div>
+
+    <div class="rol-card">
+      <div class="rol-tag">Grupo D</div>
+      <h4>Especialistas en megalitismo</h4>
+      <p>Estudiais los grandes monumentos de piedra: dólmenes, menhires y crómlechs. ¿Para qué servían? ¿Cómo los construyeron sin maquinaria? ¿Qué nos dicen de sus creadores?</p>
+    </div>
+
+    <div class="producto-final">
+      <h4>📄 Producto final: Dosier del investigador</h4>
+      <ul>
+        <li>Portada con nombre del grupo y rol</li>
+        <li>Mapa conceptual del período estudiado</li>
+        <li>Respuesta desarrollada a la pregunta guía (mínimo 300 palabras)</li>
+        <li>Tres imágenes comentadas (fuentes históricas)</li>
+        <li>Línea del tiempo con los hitos más importantes</li>
+        <li>Conclusión: qué ha cambiado y qué permanece del legado prehistórico</li>
+        <li>Bibliografía en formato APA</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. PROCESO -->
+  <section class="section" id="proceso">
+    <p class="section-label">03 · Proceso</p>
+    <h2 class="section-title">Paso a paso</h2>
+    <div class="divider"></div>
+
+    <div class="proceso-steps">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-content">
+          <h4>Formación de grupos y asignación de roles</h4>
+          <p>El profesor asigna los grupos (4 alumnos por grupo). Cada miembro del grupo tendrá una función: coordinador, redactor, buscador de fuentes e ilustrador. Se reparte el trabajo y se organiza una hoja de tareas conjunta.</p>
+          <span class="sesion-tag">Sesión 1 · 15 min</span>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-content">
+          <h4>Exploración de los recursos web</h4>
+          <p>Utilizad únicamente los recursos indicados en la sección "Recursos" de esta WebQuest. Cada buscador de fuentes visita los enlaces, toma notas y comparte la información con el grupo. Atención: debéis identificar las ideas principales, no copiar texto.</p>
+          <span class="sesion-tag">Sesión 1 · 30 min</span>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-content">
+          <h4>Análisis y debate en grupo</h4>
+          <p>Con la información recogida, discutid en grupo: ¿cuáles son las ideas más importantes? ¿Qué os ha sorprendido más? ¿Cómo responderéis a la pregunta guía? El coordinador modera y el redactor toma nota de las conclusiones.</p>
+          <span class="sesion-tag">Sesión 2 · 20 min</span>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-content">
+          <h4>Elaboración del dosier</h4>
+          <p>Redactad el dosier siguiendo el esquema de la sección "Tarea". El redactor escribe el texto, el ilustrador selecciona y comenta las imágenes, el buscador de fuentes prepara la bibliografía y el coordinador revisa la coherencia del conjunto.</p>
+          <span class="sesion-tag">Sesión 2 · 35 min</span>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">5</div>
+        <div class="paso-content">
+          <h4>Presentación oral al grupo clase</h4>
+          <p>Cada grupo dispone de 5 minutos para presentar sus conclusiones. El objetivo no es leer el dosier, sino explicar lo más importante con vuestras propias palabras. Al final, cada grupo elaborará una reflexión personal sobre lo que han aprendido.</p>
+          <span class="sesion-tag">Sesión 3 · 40 min</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. RECURSOS -->
+  <section class="section" id="recursos">
+    <p class="section-label">04 · Recursos</p>
+    <h2 class="section-title">Fuentes para vuestra investigación</h2>
+    <div class="divider"></div>
+    <p style="color:var(--text-muted); margin-bottom: 1.5rem; font-size: 1rem;">Solo debéis utilizar los recursos que aparecen en esta lista. Están seleccionados para garantizar información fiable y adecuada a vuestro nivel.</p>
+
+    <div class="recursos-grid">
+
+      <div class="recurso-card">
+        <div class="recurso-tipo">Portal educativo</div>
+        <h4>Khan Academy — Prehistoria</h4>
+        <p>Vídeos y artículos explicativos sobre la evolución humana, las etapas de la Prehistoria y el arte rupestre. Nivel adaptado a ESO.</p>
+        <a href="https://es.khanacademy.org/humanities/world-history/world-history-beginnings" class="recurso-link" target="_blank">→ Visitar recurso</a>
+      </div>
+
+      <div class="recurso-card">
+        <div class="recurso-tipo">Museo virtual</div>
+        <h4>Museo de Altamira (virtual)</h4>
+        <p>Visita virtual oficial al Museo de Altamira con imágenes de alta resolución de las pinturas rupestres y fichas didácticas.</p>
+        <a href="https://www.culturaydeporte.gob.es/mnaaltamira/inicio.html" class="recurso-link" target="_blank">→ Visitar recurso</a>
+      </div>
+
+      <div class="recurso-card">
+        <div class="recurso-tipo">Enciclopedia online</div>
+        <h4>National Geographic — Prehistoria</h4>
+        <p>Artículos divulgativos de alta calidad sobre Homo sapiens, Neandertales, arte prehistórico y la revolución agrícola. Con fotografías.</p>
+        <a href="https://www.nationalgeographic.es/historia" class="recurso-link" target="_blank">→ Visitar recurso</a>
+      </div>
+
+      <div class="recurso-card">
+        <div class="recurso-tipo">Recurso didáctico</div>
+        <h4>Educarchile — La Prehistoria</h4>
+        <p>Material didáctico estructurado sobre las etapas prehistóricas, con textos breves, líneas del tiempo e imágenes comentadas.</p>
+        <a href="https://www.educarchile.cl" class="recurso-link" target="_blank">→ Visitar recurso</a>
+      </div>
+
+      <div class="recurso-card">
+        <div class="recurso-tipo">Documental</div>
+        <h4>YouTube: "La Prehistoria para niños"</h4>
+        <p>Documental divulgativo de 12 minutos que resume las etapas principales de la Prehistoria con animaciones. Ideal para empezar.</p>
+        <a href="https://www.youtube.com/results?search_query=la+prehistoria+explicada+educacion" class="recurso-link" target="_blank">→ Buscar en YouTube</a>
+      </div>
+
+      <div class="recurso-card">
+        <div class="recurso-tipo">Cronología interactiva</div>
+        <h4>Museo Arqueológico Nacional</h4>
+        <p>Colecciones online del MAN con piezas prehistóricas reales: hachas de sílex, venus, cerámica neolítica. Fichas descriptivas de cada pieza.</p>
+        <a href="https://www.man.es/man/coleccion/catalogo-cronologico/prehistoria.html" class="recurso-link" target="_blank">→ Visitar recurso</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. EVALUACIÓN -->
+  <section class="section" id="evaluacion">
+    <p class="section-label">05 · Evaluación</p>
+    <h2 class="section-title">Cómo se valorará vuestro trabajo</h2>
+    <div class="divider"></div>
+
+    <div class="puntuacion-bar">
+      <div class="punt-item">
+        <span class="punt-num">40%</span>
+        <span class="punt-label">Dosier escrito</span>
+      </div>
+      <div class="punt-item">
+        <span class="punt-num">30%</span>
+        <span class="punt-label">Presentación oral</span>
+      </div>
+      <div class="punt-item">
+        <span class="punt-num">20%</span>
+        <span class="punt-label">Trabajo en equipo</span>
+      </div>
+      <div class="punt-item">
+        <span class="punt-num">10%</span>
+        <span class="punt-label">Reflexión final</span>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto; margin-top: 1.5rem;">
+      <table class="rubrica-table">
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th><span class="nivel-tag nivel-ex">Excelente (9-10)</span></th>
+            <th><span class="nivel-tag nivel-bien">Notable (7-8)</span></th>
+            <th><span class="nivel-tag nivel-suf">Suficiente (5-6)</span></th>
+            <th><span class="nivel-tag nivel-ins">Insuficiente (&lt;5)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Contenido histórico</td>
+            <td>Información precisa, completa y bien contextualizada. Demuestra comprensión profunda.</td>
+            <td>Información correcta con algún error menor. Buena comprensión general.</td>
+            <td>Información básica correcta pero escasa o con algunos errores.</td>
+            <td>Información incompleta, incorrecta o copiada literalmente de las fuentes.</td>
+          </tr>
+          <tr>
+            <td>Uso de fuentes</td>
+            <td>Utiliza todos los recursos indicados, los cita correctamente en APA y los integra de forma elaborada.</td>
+            <td>Usa la mayoría de los recursos y los cita. Integración adecuada.</td>
+            <td>Usa algunos recursos. Citas incompletas o con errores de formato.</td>
+            <td>No cita fuentes o usa recursos no autorizados.</td>
+          </tr>
+          <tr>
+            <td>Presentación oral</td>
+            <td>Exposición clara, fluida y bien estructurada. Responde bien a las preguntas.</td>
+            <td>Exposición comprensible, con algún momento de duda. Responde correctamente.</td>
+            <td>Exposición básica, algo confusa o muy dependiente del texto escrito.</td>
+            <td>Exposición muy deficiente o no realizada.</td>
+          </tr>
+          <tr>
+            <td>Trabajo cooperativo</td>
+            <td>Participación equilibrada de todos los miembros. Excelente organización interna.</td>
+            <td>Buena participación general con algún desequilibrio menor.</td>
+            <td>Participación desigual. Uno o dos miembros llevan el peso.</td>
+            <td>Trabajo individualizado. No hay evidencia de cooperación real.</td>
+          </tr>
+          <tr>
+            <td>Reflexión final</td>
+            <td>Reflexión profunda, personal y conectada con el presente. Va más allá de lo visto en clase.</td>
+            <td>Reflexión adecuada que sintetiza los aprendizajes principales.</td>
+            <td>Reflexión superficial o genérica.</td>
+            <td>Sin reflexión o copia de otra parte del trabajo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. CONCLUSIÓN -->
+  <section class="section" id="conclusion">
+    <p class="section-label">06 · Conclusión</p>
+    <h2 class="section-title">Al final del viaje</h2>
+    <div class="divider"></div>
+
+    <p class="conclusion-mensaje">A lo largo de esta WebQuest habéis recorrido millones de años de historia humana. Habéis descubierto que los primeros hombres y mujeres no eran salvajes primitivos, sino seres curiosos, creativos y capaces de resolver problemas complejos. Sus herramientas, su arte y sus construcciones son la prueba de que la inteligencia humana no ha cambiado tanto en 100.000 años.</p>
+
+    <div class="conclusion-preguntas">
+      <h4>Preguntas para la reflexión final (individual)</h4>
+      <ol>
+        <li>¿Qué es lo que más te ha sorprendido de la vida en la Prehistoria? ¿Por qué?</li>
+        <li>¿Crees que la Revolución Neolítica fue un progreso o también tuvo aspectos negativos?</li>
+        <li>¿Qué tienen en común los seres humanos del Paleolítico con las personas de hoy?</li>
+        <li>Si pudieras viajar en el tiempo a la Prehistoria, ¿qué periodo elegirías y por qué?</li>
+        <li>¿Qué legado de la Prehistoria está todavía presente en nuestra vida cotidiana?</li>
+      </ol>
+    </div>
+
+    <p class="conclusion-mensaje" style="margin-top:1.5rem;">La historia no es solo el pasado: es la explicación de quiénes somos y por qué somos así. Los primeros humanos tuvieron que inventar casi todo desde cero. Vosotros habéis tenido la suerte de poder investigarlo.</p>
+
+  </section>
+
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="site-footer">
+  <p><strong>WebQuest: ¿Cómo vivían los primeros humanos?</strong> · Asignatura: Geografía e Historia · 1º ESO</p>
+  <p style="margin-top:0.4rem;">Diseñada para el Proyecto de Innovación Docente · Máster de Formación del Profesorado</p>
+</footer>
+
+<script>
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
